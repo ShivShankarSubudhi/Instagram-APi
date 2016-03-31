@@ -1,0 +1,90 @@
+<html  ng-app="instagram">
+<head>
+<title>Shiv's Instagram</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body ng-controller= "instCtrl" ng-init="fetch_url();" class="ng-cloak">
+    <div id="not_reg" class="error-msg">You are not a Registered user of Shiv's Application</div>
+    <div ng-show = "check_redirected == false">
+        <div class="col-lg-offset-5 instagram_login_btn">
+              <a href= "https://instagram.com/oauth/authorize/?client_id=1787500b491e4206948f2e8c29ab31df&redirect_uri=http://shiv.site88.net&response_type=code">
+                  <image src="images/instagram_login_button.jpg">
+              </a>
+        </div>
+    </div>
+
+    <div ng-show="response">
+        <div class="row main_row">
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 profile_col1">
+                <image class="image-responsive" ng-src ="{{response.profile_picture}}">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-8  col-lg-8 profile_col2">
+                <div class="row profile_details_row">
+                    <div class="col-lg-2 font-16 font-bold">Name  :</div>
+                    <div class="col-lg-10 font-16" ng-bind="response.full_name"></div>
+                </div>
+                <div class="row profile_details_row">
+                    <div class="col-lg-2 font-16 font-bold">Username  :</div>
+                    <div class="col-lg-10 font-16" ng-bind="response.username"></div>
+                </div>
+                <div class="row profile_details_row">
+                    <div class="col-lg-2 font-16 font-bold">ID  :</div>
+                    <div class="col-lg-10 font-16" ng-bind="response.id"></div>
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <div class="row logout_row">
+                    <a href = "http://www.shiv.site88.net">
+                        <button class="btn btn-info"id="logoutBtn" style="float:right;display:none;">Logout</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+	    <div id="no_photos" class="error-msg">You have not shared any photos in instagram</div>
+
+        <div class="row photo_row">
+          <div  ng-repeat = "image in response.image_related.data |limitTo:limits">
+              <div class="col-xs-6" style="padding:20px">
+                  <div class="col-xs-4">
+                     <a href="javascript:void(0)" title="CLick to expand the Image">
+                          <img class="image-responsive" ng-src ="{{image.images.thumbnail.url}}"
+                           data-toggle="modal" data-target="#image_expand_{{$index}}">
+                      </a>
+                  </div>
+                  <div class="col-xs-6">
+                      <div class="col-lg-6 font-16 font-bold">Likes:  </div>
+                      <div class="col-lg-6 font-16" ng-bind="image.likes.count"></div>
+                      <div class="col-lg-6 font-16 font-bold">Comments:  </div>
+                      <div class="col-lg-6 font-16" ng-bind="image.comments.count"></div>
+                      <div class="col-lg-6 font-16 font-bold">Created Time:  </div>
+                      <div class="col-lg-6" ng-bind="image.created_time * 1000 |date :'mediumDate'"></div>
+                  </div>
+              </div>
+
+              <div id="image_expand_{{$index}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-body text-center">
+                          <img ng-src ="{{image.images.standard_resolution.url}}" itemprop="image">
+                      <a href="javascript:void(0)" data-dismiss="modal" aria-hidden="true" title="CLick to close the Image">
+                          <label class="btn btn-default btn-xs big-img-close-btn"><span class="glyphicon glyphicon-remove" ></span></label>
+                      </a>
+                  </div>
+              </div>
+          </div>
+              <a id="load_more" href="Javascript:void(0);" class="btn btn-primary col-lg-offset-2 col-lg-8">Load More Images</a>
+      </div>
+    </div>
+
+<script src='lib/jquery.js'></script>
+<script src='lib/angular.min.js'></script>
+<script src='lib/bootstrap/js/bootstrap.min.js'></script>
+<script src='js/app.js'></script>
+<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+<style>
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+</style>
+</body>
+</html>

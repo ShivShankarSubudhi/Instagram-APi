@@ -1,0 +1,8 @@
+
+CLIENT INFO
+CLIENT ID	1787500b491e4206948f2e8c29ab31df
+CLIENT SECRET	a55f6781d6504c0597254602b4890e3c
+WEBSITE URL	http://shiv.site88.net
+REDIRECT URI	http://shiv.site88.net
+SUPPORT EMAIL	shivshankar.somu@gmail.com
+a news website
